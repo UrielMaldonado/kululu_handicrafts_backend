@@ -7,4 +7,5 @@
    ```bash
    npm install
 3. Ejecuta las migraciones y inicia el servidor con un solo comando:
-npm run migrate-and-start
+   ```bash
+   npm run migrate-and-start
