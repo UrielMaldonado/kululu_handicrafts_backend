@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 // Obtener todas las piezas de ropa artesanal
 async function getAllRopaArtesanal(req, res) {
   try {
-    const ropaArtesanal = await prisma.ropa_artesanal.findMany();
+    const ropaArtesanal = await prisma.ropaArtesanal.findMany();
     res.json(ropaArtesanal);
   } catch (error) {
     console.error('Error al obtener la ropa artesanal:', error);
@@ -17,7 +17,7 @@ async function getAllRopaArtesanal(req, res) {
 async function getRopaArtesanalById(req, res) {
   const { id } = req.params;
   try {
-    const ropaArtesanal = await prisma.ropa_artesanal.findUnique({
+    const ropaArtesanal = await prisma.ropaArtesanal.findUnique({
       where: { id: parseInt(id) },
     });
     if (ropaArtesanal) {
@@ -34,7 +34,7 @@ async function getRopaArtesanalById(req, res) {
 async function deleteRopaArtesanalById(req, res) {
   const { id } = req.params;
   try {
-    const deletedRopaArtesanal = await prisma.ropa_artesanal.delete({
+    const deletedRopaArtesanal = await prisma.ropaArtesanal.delete({
       where: { id: parseInt(id) },
     });
     res.json(deletedRopaArtesanal);
@@ -48,7 +48,7 @@ async function updateRopaArtesanalById(req, res) {
   const { id } = req.params;
   const updatedData = req.body; // Asegúrate de validar y sanear los datos antes de usarlos en una aplicación real.
   try {
-    const updatedRopaArtesanal = await prisma.ropa_artesanal.update({
+    const updatedRopaArtesanal = await prisma.ropaArtesanal.update({
       where: { id: parseInt(id) },
       data: updatedData,
     });
@@ -63,4 +63,5 @@ module.exports = {
   getAllRopaArtesanal,
   getRopaArtesanalById,
   deleteRopaArtesanalById,
+  updateRopaArtesanalById
 };
