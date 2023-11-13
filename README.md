@@ -10,8 +10,6 @@
    ```bash
    npm run migrate-and-start
 
-
-
    para la bd 
    npx prisma generate
    npx prisma db push
