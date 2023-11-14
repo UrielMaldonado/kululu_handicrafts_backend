@@ -8,5 +8,6 @@ router.get('/ropa-artesanal', ropaArtesanalController.getAllRopaArtesanal);
 router.get('/ropa-artesanal/:id', ropaArtesanalController.getRopaArtesanalById);
 router.delete('/ropa-artesanal/:id', ropaArtesanalController.deleteRopaArtesanalById);
 router.put('/ropa-artesanal/:id', ropaArtesanalController.updateRopaArtesanalById);
+router.post('/ropa-artesanal', ropaArtesanalController.createRopaArtesanal);
 
 module.exports = router;

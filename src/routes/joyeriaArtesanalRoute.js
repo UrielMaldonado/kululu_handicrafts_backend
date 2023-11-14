@@ -8,5 +8,6 @@ router.get('/joyeria-artesanal', joyeriaArtesanalController.getAllJoyeriaArtesan
 router.get('/joyeria-artesanal/:id', joyeriaArtesanalController.getJoyeriaArtesanalById);
 router.delete('/joyeria-artesanal/:id', joyeriaArtesanalController.deleteJoyeriaArtesanalById);
 router.put('/joyeria-artesanal/:id', joyeriaArtesanalController.updateJoyeriaArtesanalById);
+router.post('/joyeria-artesanal', joyeriaArtesanalController.createJoyeriaArtesanal);
 
 module.exports = router;

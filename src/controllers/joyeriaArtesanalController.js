@@ -61,9 +61,24 @@ async function updateJoyeriaArtesanalById(req, res) {
   }
 }
 
+// Crear una pieza de joyería artesanal
+async function createJoyeriaArtesanal(req, res) {
+  const newData = req.body; // Asegúrate de validar y sanear los datos antes de usarlos en una aplicación real.
+  try {
+    const createdJoyeriaArtesanal = await prisma.joyeriaArtesanal.create({
+      data: newData,
+    });
+    res.status(201).json(createdJoyeriaArtesanal); // Devolver código 201 para indicar creación exitosa
+  } catch (error) {
+    console.error('Error al crear la pieza de joyería artesanal:', error);
+    res.status(500).json({ error: 'Ocurrió un error al crear la pieza de joyería artesanal' });
+  }
+}
+
 module.exports = {
   getAllJoyeriaArtesanal,
   getJoyeriaArtesanalById,
   deleteJoyeriaArtesanalById,
-  updateJoyeriaArtesanalById
+  updateJoyeriaArtesanalById,
+  createJoyeriaArtesanal
 };

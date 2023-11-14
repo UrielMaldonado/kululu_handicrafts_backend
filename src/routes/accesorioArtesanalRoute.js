@@ -8,5 +8,7 @@ router.get('/accesorio-artesanal', accesorioArtesanalController.getAllAccesorioA
 router.get('/accesorio-artesanal/:id', accesorioArtesanalController.getAccesorioArtesanalById);
 router.delete('/accesorio-artesanal/:id', accesorioArtesanalController.deleteAccesorioArtesanalById);
 router.put('/accesorio-artesanal/:id', accesorioArtesanalController.updateAccesorioArtesanalById);
+router.post('/accesorio-artesanal', accesorioArtesanalController.createAccesorioArtesanal);
+
 
 module.exports = router;

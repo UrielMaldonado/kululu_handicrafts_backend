@@ -61,9 +61,23 @@ async function updateAccesorioArtesanalById(req, res) {
   }
 }
 
+async function createAccesorioArtesanal(req, res) {
+  const newData = req.body;
+  try {
+    const createdAccesorioArtesanal = await prisma.accesorioArtesanal.create({
+      data: newData,
+    });
+    res.status(201).json(createdAccesorioArtesanal);
+  } catch (error) {
+    console.error('Error al crear el accesorio artesanal:', error);
+    res.status(500).json({ error: 'Ocurrió un error al crear el accesorio artesanal' });
+  }
+}
+
 module.exports = {
   getAllAccesorioArtesanal,
   getAccesorioArtesanalById,
   deleteAccesorioArtesanalById,
-  updateAccesorioArtesanalById
+  updateAccesorioArtesanalById,
+  createAccesorioArtesanal
 };

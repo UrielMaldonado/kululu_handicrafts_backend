@@ -13,6 +13,20 @@ async function getAllRopaArtesanal(req, res) {
   }
 }
 
+async function createRopaArtesanal(req, res) {
+  const newData = req.body; // Asegúrate de validar y sanear los datos antes de usarlos en una aplicación real.
+  try {
+    const createdRopaArtesanal = await prisma.ropaArtesanal.create({
+      data: newData,
+    });
+    res.status(201).json(createdRopaArtesanal); // Devolver código 201 para indicar creación exitosa
+  } catch (error) {
+    console.error('Error al crear la pieza de ropa artesanal:', error);
+    
+    res.status(500).json({ error: 'Ocurrió un error al crear la pieza de ropa artesanal' });
+  }
+}
+
 // Obtener una pieza de ropa artesanal por ID
 async function getRopaArtesanalById(req, res) {
   const { id } = req.params;
@@ -63,5 +77,6 @@ module.exports = {
   getAllRopaArtesanal,
   getRopaArtesanalById,
   deleteRopaArtesanalById,
-  updateRopaArtesanalById
+  updateRopaArtesanalById,
+  createRopaArtesanal
 };

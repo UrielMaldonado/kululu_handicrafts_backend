@@ -34,6 +34,8 @@ app.use(ropaArtesanalRoutes);
 app.get('/', (req, res) => {
   res.send('¡Conexión exitosa al backend!');
 });
+// Antes de la configuración del enrutador
+
 
 app.listen(PORT, () => {
   console.log(`Servidor en ejecución en http://localhost:${PORT}`);
