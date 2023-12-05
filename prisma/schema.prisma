@@ -3,95 +3,57 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url = env("DATABASE_URL")
 }
+enum RolUsuario {
+administrador
+cliente
+}
 
-// Tabla para usuarios registrados
+enum TipoProducto {
+  ropa
+  accesorio
+  joyeria
+}
+
+model tbb_artesaniasProducto {
+  id          Int       @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  precio      Float
+  imagen      String  @db.VarChar(1000)
+  stock       Int
+  tipo        TipoProducto 
+  compras  Compra[]
+}
+
 model Usuario {
-  id       Int      @id @default(autoincrement())
-  nombre_usuario String
-  correo_electronico String   @unique
-  contrasena String
-  // Relación con el carrito de compras
-  carrito Compra[]
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  apellido    String
+  email     String   @unique
+  password  String
+  rolId     Int
+  role    Rol @relation(fields: [rolId], references: [id])   
+  compras  Compra[]
 }
 
-// Tabla para el carrito de compras de los usuarios
+model Rol {
+  id       Int     @id @default(autoincrement())
+  rol   RolUsuario
+  usuarios Usuario[] // Mantén esto para una relación uno a muchos
+}
+
 model Compra {
-  id       Int       @id @default(autoincrement())
-  id_usuario   Int
-  usuario     Usuario      @relation(fields: [id_usuario], references: [id])
-  // Relación con los productos en el carrito
-  elementos_carrito ElementoCarrito[]
-}
-
-// Tabla para los productos en el carrito
-model ElementoCarrito {
-  id         Int     @id @default(autoincrement())
-  id_carrito     Int
-  carrito       Compra    @relation(fields: [id_carrito], references: [id])
-  id_producto  Int
-  producto    Producto @relation(fields: [id_producto], references: [id])
-  cantidad   Int
-  // Puedes agregar más campos según tus necesidades, como el precio unitario, etc.
-}
-
-// Tabla para productos genéricos
-model Producto {
-  id          Int       @id @default(autoincrement())
-  nombre        String
-  descripcion String
-  precio       Float
-  imagen       String
-  // Relación con el stock
-  stock       Inventario[]
-  // Relación con los productos en el carrito
-  elementos_carrito ElementoCarrito[]
-}
-
-// La relación con Stock que tenías previamente
-model Inventario {
-  id              Int               @id @default(autoincrement())
-  cantidad        Int
-  fecha            DateTime
-  id_producto       Int
-  producto         Producto           @relation(fields: [id_producto], references: [id])
-  // Aquí debes añadir las relaciones con tus otras tablas de artesanías
-  ropa_artesanal  RopaArtesanal[]
-  accesorio_artesanal AccesorioArtesanal[]
-  joyeria_artesanal JoyeriaArtesanal[]
-}
-
-// Tabla para productos de ropa artesanal
-model RopaArtesanal {
-  id          Int       @id @default(autoincrement())
-  nombre        String
-  descripcion String
-  precio       Float
-  imagen       String  @db.VarChar(1000)
-  // Relación con el stock
-  stock       Inventario[]
-}
-
-// Tabla para productos de accesorios artesanales
-model AccesorioArtesanal {
-  id          Int       @id @default(autoincrement())
-  nombre        String
-  descripcion String
-  precio       Float
-  imagen       String
-  // Relación con el stock
-  stock       Inventario[]
-}
-
-// Tabla para productos de joyería artesanal
-model JoyeriaArtesanal {
-  id          Int       @id @default(autoincrement())
-  nombre        String
-  descripcion String
-  precio       Float
-  imagen       String
-  // Relación con el stock
-  stock       Inventario[]
+  id               Int      @id @default(autoincrement())
+  usuarioId        Int
+  productoId       Int
+  direccion        String  @db.VarChar(1000)
+  numeroCelular    String
+  codigoPostal     String
+  indicacionesEnvio String  @db.VarChar(1000)
+  fechaCompra      DateTime @default(now()) 
+  usuario          Usuario  @relation(fields: [usuarioId], references: [id])
+  producto         tbb_artesaniasProducto @relation(fields: [productoId], references: [id])
 }
